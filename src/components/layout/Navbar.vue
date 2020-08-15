@@ -25,7 +25,12 @@
     <v-spacer></v-spacer>
     <router-link :to="{ name: 'About' }">
       <v-btn text>
-        <span class="mr-2">About</span>
+        <span class="mr-2">Sign Up</span>
+      </v-btn>
+    </router-link>
+    <router-link :to="{ name: 'About' }">
+      <v-btn text>
+        <span class="mr-2">Login</span>
       </v-btn>
     </router-link>
   </v-app-bar>
