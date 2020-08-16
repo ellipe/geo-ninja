@@ -23,7 +23,7 @@
     </router-link>
 
     <v-spacer></v-spacer>
-    <router-link :to="{ name: 'About' }">
+    <router-link :to="{ name: 'Signup' }">
       <v-btn text>
         <span class="mr-2">Sign Up</span>
       </v-btn>
