@@ -51,7 +51,6 @@ export default {
   methods: {
     login() {
       if (this.$refs.signup.validate()) {
-        console.log('DEBUG:::::::::::::::::::::: login')
         firebase
           .auth()
           .signInWithEmailAndPassword(this.email, this.password)

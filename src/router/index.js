@@ -27,6 +27,14 @@ const routes = [
     component: Login,
   },
   {
+    path: '/profile/:id',
+    name: 'Login',
+    component: Login,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
     path: '/about',
     name: 'About',
     // route level code-splitting

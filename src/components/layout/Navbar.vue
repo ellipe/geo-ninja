@@ -23,17 +23,17 @@
     </router-link>
 
     <v-spacer></v-spacer>
-    <router-link :to="{ name: 'Signup' }">
+    <router-link :to="{ name: 'Signup' }" v-if="!user">
       <v-btn text>
         <span class="mr-2">Sign Up</span>
       </v-btn>
     </router-link>
-    <router-link :to="{ name: 'Login' }">
+    <router-link :to="{ name: 'Login' }" v-if="!user">
       <v-btn text>
         <span class="mr-2">Login</span>
       </v-btn>
     </router-link>
-    <v-btn text @click="logout">
+    <v-btn text @click="logout" v-if="user">
       <span class="mr-2">Logout</span>
     </v-btn>
   </v-app-bar>
@@ -43,6 +43,11 @@
 import firebase from 'firebase'
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      user: null,
+    }
+  },
   methods: {
     logout() {
       firebase
@@ -52,6 +57,11 @@ export default {
           this.$router.push({ name: 'Login' })
         })
     },
+  },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.user = user ? user : null
+    })
   },
 }
 </script>

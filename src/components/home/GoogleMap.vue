@@ -27,6 +27,34 @@ export default {
         minZoom: 3,
         streetViewControl: false,
       })
+
+      db.collection('users')
+        .get()
+        .then(users => {
+          users.docs.forEach(doc => {
+            let data = doc.data()
+            if (data) {
+              // eslint-disable-next-line no-unused-vars,no-undef
+              let marker = new google.maps.Marker({
+                position: {
+                  lat: data.geolocation.lat,
+                  lng: data.geolocation.lng,
+                },
+                map: googleMap,
+                title: data.alias,
+              })
+
+              marker.addListener('click', () => {
+                if (marker.getAnimation() !== null) {
+                  marker.setAnimation(null)
+                } else {
+                  // eslint-disable-next-line no-undef
+                  marker.setAnimation(google.maps.Animation.BOUNCE)
+                }
+              })
+            }
+          })
+        })
     },
   },
   mounted() {
