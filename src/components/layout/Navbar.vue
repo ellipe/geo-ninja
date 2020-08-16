@@ -28,16 +28,30 @@
         <span class="mr-2">Sign Up</span>
       </v-btn>
     </router-link>
-    <router-link :to="{ name: 'About' }">
+    <router-link :to="{ name: 'Login' }">
       <v-btn text>
         <span class="mr-2">Login</span>
       </v-btn>
     </router-link>
+    <v-btn text @click="logout">
+      <span class="mr-2">Logout</span>
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
   name: 'Navbar',
+  methods: {
+    logout() {
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.push({ name: 'Signup' })
+        })
+    },
+  },
 }
 </script>

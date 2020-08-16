@@ -31,7 +31,6 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text>Cancel</v-btn>
           <v-btn color="success" @click="signup">Signup</v-btn>
         </v-card-actions>
       </v-card>

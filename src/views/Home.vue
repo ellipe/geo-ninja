@@ -7,7 +7,7 @@
 import GoogleMap from '@/components/home/GoogleMap.vue'
 
 export default {
-  name: 'Home',
+  name: 'Homepage',
   components: {
     GoogleMap,
   },

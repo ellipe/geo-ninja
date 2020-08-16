@@ -1,17 +1,17 @@
 <template>
   <v-container class="fill-height">
-    <Signup />
+    <Login />
   </v-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import Signup from '@/components/auth/Signup.vue'
+import Login from '@/components/auth/Login.vue'
 
 export default {
-  name: 'SignupPage',
+  name: 'LoginPage',
   components: {
-    Signup,
+    Login,
   },
 }
 </script>
