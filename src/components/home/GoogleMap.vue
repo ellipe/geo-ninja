@@ -27,9 +27,6 @@ export default {
     },
   },
   mounted() {
-    console.log('DEBUG:::::::::::::::::::::: api', process.env.GOOGLE_MAP_API_KEY)
-    console.log(process.env.NODE_ENV)
-    console.log(process.env.VUE_APP_DEMO)
     this.renderMap()
   },
 }

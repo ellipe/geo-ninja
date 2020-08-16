@@ -42,6 +42,7 @@
 <script>
 import slugify from 'slugify'
 import db from '../../firebase/init'
+import firebase from 'firebase'
 
 export default {
   name: 'Signup',
@@ -54,7 +55,9 @@ export default {
       invalidAlias: null,
 
       rules: {
-        invalidEmail: v => /.+@.+/.test(v) || 'E-mail must be valid',
+        invalidEmail: v =>
+          // eslint-disable-next-line no-useless-escape
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v) || 'E-mail must be valid',
         min: v => v.length >= 8 || 'Min 8 characters',
         required: value => !!value || 'Required.',
       },
@@ -70,9 +73,15 @@ export default {
         })
         let ref = db.collection('users').doc(this.slug)
         ref.get().then(doc => {
-          this.invalidAlias = doc.exists
-            ? 'This alias is been used, please choose another'
-            : null
+          if (doc.exists) {
+            this.invalidAlias = 'This alias is been used, please choose another'
+          } else {
+            firebase
+              .auth()
+              .createUserWithEmailAndPassword(this.email, this.password)
+              .catch(err => console.log(err))
+            this.invalidAlias = ''
+          }
         })
       } else {
         this.$refs.signup.validate()
