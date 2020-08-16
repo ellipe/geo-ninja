@@ -79,6 +79,19 @@ export default {
             firebase
               .auth()
               .createUserWithEmailAndPassword(this.email, this.password)
+              .then(data => {
+                data.user.updateProfile({
+                  displayName: this.alias,
+                })
+                ref.set({
+                  alias: this.alias,
+                  geolocation: null,
+                  user_id: data.user.uid,
+                })
+              })
+              .then(() => {
+                this.$router.push({ name: 'Home' })
+              })
               .catch(err => console.log(err))
             this.invalidAlias = ''
           }

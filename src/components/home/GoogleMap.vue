@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import firebase from 'firebase'
 export default {
   name: 'GoogleMap',
   data() {
@@ -28,6 +29,10 @@ export default {
   },
   mounted() {
     this.renderMap()
+    console.log(
+      'DEBUG:::::::::::::::::::::: firebase_user',
+      firebase.auth().currentUser
+    )
   },
 }
 </script>
