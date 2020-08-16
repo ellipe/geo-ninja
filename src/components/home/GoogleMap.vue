@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import db from '../../firebase/init'
 import firebase from 'firebase'
 export default {
   name: 'GoogleMap',
@@ -10,6 +11,7 @@ export default {
     return {
       lat: 53,
       lng: -2,
+      user_id: null,
     }
   },
   methods: {
@@ -28,11 +30,43 @@ export default {
     },
   },
   mounted() {
-    this.renderMap()
-    console.log(
-      'DEBUG:::::::::::::::::::::: firebase_user',
-      firebase.auth().currentUser
-    )
+    let user = firebase.auth().currentUser
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => {
+          db.collection('users')
+            .where('user_id', '==', user.uid)
+            .get()
+            .then(snapshot => {
+              snapshot.forEach(doc => {
+                db.collection('users')
+                  .doc(doc.id)
+                  .update({
+                    geolocation: {
+                      lat: pos.coords.latitude,
+                      lng: pos.coords.longitude,
+                    },
+                  })
+              })
+            })
+            .then(() => {
+              this.lat = pos.coords.latitude
+              this.lng = pos.coords.longitude
+              this.renderMap()
+            })
+        },
+        err => {
+          console.log(err)
+          this.renderMap()
+        },
+        {
+          maximumAge: 60000,
+          timeout: 3000,
+        }
+      )
+    } else {
+      this.renderMap()
+    }
   },
 }
 </script>

@@ -49,7 +49,7 @@ export default {
         .auth()
         .signOut()
         .then(() => {
-          this.$router.push({ name: 'Signup' })
+          this.$router.push({ name: 'Login' })
         })
     },
   },
